@@ -5,18 +5,24 @@ import { HiOutlineUser, HiLogin } from 'react-icons/hi';
 import Button from '@components/signin/Button';
 import Input from '@components/signin/Input';
 import FormTitle from '@components/signin/FormTitle';
+import Seo from '@components/Layout/Seo';
 import useSignin from '@hooks/useSignin';
 import { flexBox } from '@styles/mixins';
 import ReLoginModal from './ReLoginModal';
 
-function Signin() {
+type Props = {
+  isExpired: boolean;
+};
+
+function Signin({ isExpired }: Props) {
   const { email, password, isFormValid, handleEmailChange, handlePasswordChange, handleSubmit } = useSignin();
 
   return (
     <Container>
+      <Seo title="D. PREFACE | 로그인" />
       <Title>PREFACE</Title>
       <SubContainer>
-        <ReLoginModal />
+        <ReLoginModal isExpired={isExpired} />
         <FormTitle Icon={HiOutlineUser}>로그인</FormTitle>
         <Form onSubmit={handleSubmit}>
           <Input value={email} onChange={handleEmailChange} type="text" placeholder="아이디를 입력하세요" />

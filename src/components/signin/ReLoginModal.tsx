@@ -1,17 +1,19 @@
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
 import { HiInformationCircle, HiOutlineX } from 'react-icons/hi';
 
 import { flexBox, positionCenterX } from '@styles/mixins';
-import { ReLoginModalState, unshowModal } from '@store/reLoginModalSlice';
+import { useState } from 'react';
 
-function ReLoginModal() {
-  const { isShowReLoginModal } = useSelector((state: { isShowReLoginModal: ReLoginModalState }) => state);
-  const dispatch = useDispatch();
+type Props = {
+  isExpired: boolean;
+};
 
-  const handleClick = () => dispatch(unshowModal());
+function ReLoginModal({ isExpired }: Props) {
+  const [isOpen, setIsOpen] = useState(isExpired);
 
-  if (!isShowReLoginModal) return null;
+  const handleClick = () => setIsOpen(false);
+
+  if (!isOpen) return null;
 
   return (
     <Container>
@@ -28,7 +30,7 @@ const Container = styled.div`
   ${positionCenterX()}
   top: -60px;
   ${flexBox()}
-  width: 300px;
+  width: 320px;
   height: 40px;
   background-color: ${({ theme }) => theme.YELLOW_BG};
   border: 1px solid ${({ theme }) => theme.YELLOW};
