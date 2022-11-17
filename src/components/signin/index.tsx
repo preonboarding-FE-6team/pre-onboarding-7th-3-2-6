@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { HiOutlineUser, HiLogin } from 'react-icons/hi';
 
-import Button from '@components/Signin/Button';
-import Input from '@components/Signin/Input';
-import FormTitle from '@components/Signin/FormTitle';
+import Button from '@components/signin/Button';
+import Input from '@components/signin/Input';
+import FormTitle from '@components/signin/FormTitle';
 import useSignin from '@hooks/useSignin';
 import { flexBox } from '@styles/mixins';
 import ReLoginModal from './ReLoginModal';
