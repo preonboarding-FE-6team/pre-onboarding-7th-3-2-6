@@ -3,17 +3,15 @@ import axios, { AxiosError } from 'axios';
 
 import AccountsView from '@components/Accounts';
 import { Account } from '@type/account';
-import { COOKIE_TOKEN_KEY } from '@repositories/CookieTokenRepository';
+import { COOKIE_TOKEN_KEY, TOKEN_EXPIRED } from '@repositories/CookieTokenRepository';
 import getQueryString from '@utils/getQueryString';
 import AccountsService from '@services/AccountService';
-
 
 type Props = {
   accounts: Account[];
   initialQuery: Record<string, unknown>;
   totalLength: string;
 };
-
 
 function Accounts({ accounts, initialQuery, totalLength }: Props) {
   return <AccountsView accounts={accounts} initialQuery={initialQuery} totalLength={totalLength} />;
@@ -36,7 +34,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, query }
     );
   } catch (error) {
     if (error instanceof AxiosError && error.response?.status === 401) {
-      res.setHeader('Set-Cookie', [`${COOKIE_TOKEN_KEY}=null; Path=/`]);
+      res.setHeader('Set-Cookie', [`${COOKIE_TOKEN_KEY}=${TOKEN_EXPIRED}; Path=/`]);
       return {
         redirect: {
           destination: '/signin',

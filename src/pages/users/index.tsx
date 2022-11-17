@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next';
 import axios, { AxiosError } from 'axios';
 
 import UsersView from '@components/Users';
-import { COOKIE_TOKEN_KEY } from '@repositories/CookieTokenRepository';
+import { COOKIE_TOKEN_KEY, TOKEN_EXPIRED } from '@repositories/CookieTokenRepository';
 import { User } from '@type/user';
 
 type Props = {
@@ -33,7 +33,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     }
   } catch (error) {
     if (error instanceof AxiosError && error.response?.status === 401) {
-      res.setHeader('Set-Cookie', [`${COOKIE_TOKEN_KEY}=null; Path=/`]);
+      res.setHeader('Set-Cookie', [`${COOKIE_TOKEN_KEY}=${TOKEN_EXPIRED}; Path=/`]);
       return {
         redirect: {
           destination: '/signin',
