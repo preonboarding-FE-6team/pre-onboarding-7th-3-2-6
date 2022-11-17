@@ -13,9 +13,10 @@ import Filters from './Filters';
 
 type Props = {
   accounts: Account[];
+  totalLength: string;
 };
 
-function Accounts({ accounts }: Props) {
+function Accounts({ accounts, totalLength }: Props) {
   const { page, limit } = useAccountQueryState();
   const { dispatchPage, dispatchSearch } = useAccountQueryDispatch();
   useAccounts();
@@ -28,7 +29,7 @@ function Accounts({ accounts }: Props) {
         <SearchBar dispatchSearch={dispatchSearch} />
       </FilterAndSearch>
       <Table accounts={accounts} />
-      <Pagenation contents={accounts} page={page} limit={limit} dispatchPage={dispatchPage} />
+      <Pagenation contents={accounts} totalLength={totalLength} page={page} limit={limit} dispatchPage={dispatchPage} />
     </>
   );
 }

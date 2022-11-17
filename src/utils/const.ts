@@ -1,3 +1,5 @@
+export const PER_PAGE = 5;
+
 export const contents = {
   dashboard: { name: '대시보드', href: '/' },
   accounts: { name: '계좌 목록', href: '/accounts' },
