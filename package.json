@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "netlify-deploy": "next build && next export",
+    "postbuild": "next-on-netlify",
     "postinstall": "husky install && npx husky add .husky/pre-commit \"npx lint-staged -q\""
   },
   "lint-staged": {
@@ -20,6 +21,7 @@
     ]
   },
   "dependencies": {
+    "@netlify/plugin-nextjs": "^4.29.1",
     "@reduxjs/toolkit": "^1.9.0",
     "@tanstack/react-query": "^4.15.0",
     "@types/node": "18.11.9",
@@ -31,6 +33,7 @@
     "eslint-config-next": "13.0.3",
     "eslint-import-resolver-typescript": "^3.5.2",
     "next": "12.2.0",
+    "next-on-netlify": "^3.0.1",
     "next-redux-wrapper": "^8.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
