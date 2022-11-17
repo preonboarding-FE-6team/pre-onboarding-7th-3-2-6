@@ -4,33 +4,36 @@ import axios, { AxiosError } from 'axios';
 import AccountsView from '@components/Accounts';
 import { Account } from '@type/account';
 import { COOKIE_TOKEN_KEY } from '@repositories/CookieTokenRepository';
+import getQueryString from '@utils/getQueryString';
+import AccountsService from '@services/AccountService';
+
 
 type Props = {
   accounts: Account[];
+  initialQuery: Record<string, unknown>;
   totalLength: string;
 };
 
-function Accounts({ accounts, totalLength }: Props) {
-  return <AccountsView accounts={accounts} totalLength={totalLength} />;
+
+function Accounts({ accounts, initialQuery, totalLength }: Props) {
+  return <AccountsView accounts={accounts} initialQuery={initialQuery} totalLength={totalLength} />;
 }
 
 export default Accounts;
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res, query }) => {
   const token = req.cookies[COOKIE_TOKEN_KEY];
-  const urlArray = req.url?.split('?');
+  const { page = 1, limit = 30, ...restQuery } = query;
+  const initialQuery = { page, limit, ...restQuery };
   let accountsRes;
 
   try {
-    if (urlArray && urlArray.length > 1) {
-      accountsRes = await axios.get<Account[]>(`http://localhost:4000/accounts?${urlArray[1]}`, {
+    accountsRes = await axios.get<Account[]>(
+      `http://localhost:4000/accounts?${getQueryString(initialQuery, AccountsService.accountsQueryConverter)}`,
+      {
         headers: { Authorization: `Bearer ${token}` },
-      });
-    } else {
-      accountsRes = await axios.get<Account[]>(`http://localhost:4000/accounts?_page=1&_limit=30`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-    }
+      }
+    );
   } catch (error) {
     if (error instanceof AxiosError && error.response?.status === 401) {
       res.setHeader('Set-Cookie', [`${COOKIE_TOKEN_KEY}=null; Path=/`]);
@@ -43,5 +46,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     }
   }
 
-  return { props: { accounts: accountsRes?.data, totalLength: accountsRes?.headers['x-total-count'] } };
+  return {
+    props: { accounts: accountsRes?.data ?? [], initialQuery, totalLength: accountsRes?.headers['x-total-count'] },
+  };
 };
