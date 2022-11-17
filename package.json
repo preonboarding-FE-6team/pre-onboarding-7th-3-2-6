@@ -7,8 +7,6 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "netlify-deploy": "next build && next export",
-    "postbuild": "next-on-netlify",
     "postinstall": "husky install && npx husky add .husky/pre-commit \"npx lint-staged -q\""
   },
   "lint-staged": {
