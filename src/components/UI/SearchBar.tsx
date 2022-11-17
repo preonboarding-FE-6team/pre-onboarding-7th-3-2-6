@@ -38,7 +38,7 @@ function SearchBar({ dispatchSearch }: Props) {
 export default SearchBar;
 
 const Form = styled.form`
-  ${flexBox()}
+  ${flexBox()};
 `;
 
 const Input = styled.input`
