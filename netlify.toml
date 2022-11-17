@@ -6,7 +6,7 @@
     publish: /opt/build/repo/out_publish
     publishOrigin: config
     functionsDirectory: /opt/build/repo/out_functions
-[plugins]:
+[plugins]
 - inputs: {}
     origin: ui
     package: '@netlify/plugin-nextjs'
