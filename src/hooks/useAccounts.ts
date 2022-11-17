@@ -15,6 +15,7 @@ function useAccounts(accounts: Account[], initialQuery: Record<string, unknown>)
   const { data } = useQuery(['accounts', accountQuery], () => AccountsService.getAccounts(accountQuery), {
     ...AccountsService.accountsQueryOptions,
     initialData:
+      initialQuery &&
       Object.keys(accountQuery) === Object.keys(initialQuery) &&
       Object.keys(accountQuery).every((key) => accountQuery[key] === initialQuery[key])
         ? accounts
@@ -26,6 +27,9 @@ function useAccounts(accounts: Account[], initialQuery: Record<string, unknown>)
   }, []);
 
   useEffect(() => {
+    if (!initialQuery) {
+      return;
+    }
     const { page = 1, limit = 30, broker_id = 'all', status = 'all', is_active = 'all' } = initialQuery;
     dispatchPage(Number(page));
     dispatchLimit(Number(limit));
