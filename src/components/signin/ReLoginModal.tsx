@@ -30,7 +30,7 @@ const Container = styled.div`
   ${positionCenterX()}
   top: -60px;
   ${flexBox()}
-  width: 300px;
+  width: 320px;
   height: 40px;
   background-color: ${({ theme }) => theme.YELLOW_BG};
   border: 1px solid ${({ theme }) => theme.YELLOW};
