@@ -14,9 +14,9 @@ function SelectBox({ options, handleSelectChange, defaultValue }: Props) {
   return (
     <Select defaultValue={defaultValue} onChange={handleChange}>
       {options.map(([id, name]) => (
-        <Option key={id} value={id}>
+        <option key={id} value={id}>
           {name}
-        </Option>
+        </option>
       ))}
     </Select>
   );
@@ -27,7 +27,7 @@ export default SelectBox;
 const Select = styled.select`
   width: 140px;
   height: 30px;
-  padding: 5px;10px;
+  padding: 5px 10px;
   border: 1px solid ${({ theme }) => theme.GRAY_DARK};
   font-size: 13px;
   text-align: center;
@@ -40,8 +40,4 @@ const Select = styled.select`
   & + select {
     margin-left: 10px;
   }
-`;
-
-const Option = styled.option`
-  background-color: black;
 `;
