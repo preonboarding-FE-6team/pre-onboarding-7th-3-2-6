@@ -4,23 +4,19 @@ import axios, { AxiosError } from 'axios';
 import AccountsView from '@components/Accounts';
 import { Account } from '@type/account';
 import { COOKIE_TOKEN_KEY } from '@repositories/CookieTokenRepository';
-import useExpiredToken from '@hooks/useExpiredToken';
 
 type Props = {
   accounts: Account[];
   totalLength: string;
-  isExpired?: boolean;
 };
 
-function Accounts({ accounts, isExpired, totalLength }: Props) {
-  useExpiredToken(isExpired);
-
+function Accounts({ accounts, totalLength }: Props) {
   return <AccountsView accounts={accounts} totalLength={totalLength} />;
 }
 
 export default Accounts;
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const token = req.cookies[COOKIE_TOKEN_KEY];
   const urlArray = req.url?.split('?');
   let accountsRes;
@@ -37,11 +33,12 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     }
   } catch (error) {
     if (error instanceof AxiosError && error.response?.status === 401) {
+      res.setHeader('Set-Cookie', [`${COOKIE_TOKEN_KEY}=null; Path=/`]);
       return {
-        props: {
-          accounts: [],
-          isExpired: true,
+        redirect: {
+          destination: '/signin',
         },
+        props: {},
       };
     }
   }
