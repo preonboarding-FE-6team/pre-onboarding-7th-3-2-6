@@ -13,9 +13,10 @@ import Filters from './Filters';
 
 type Props = {
   users: User[];
+  totalLength: string;
 };
 
-function Users({ users }: Props) {
+function Users({ users, totalLength }: Props) {
   const { page, limit } = useUserQueryState();
   const { dispatchPage, dispatchSearch } = useUserQueryDispatch();
   useUsers();
@@ -28,7 +29,7 @@ function Users({ users }: Props) {
         <SearchBar dispatchSearch={dispatchSearch} />
       </FilterAndSearch>
       <Table users={users} />
-      <Pagenation contents={users} page={page} limit={limit} dispatchPage={dispatchPage} />
+      <Pagenation contents={users} totalLength={totalLength} page={page} limit={limit} dispatchPage={dispatchPage} />
     </>
   );
 }

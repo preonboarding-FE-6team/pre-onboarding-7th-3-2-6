@@ -8,13 +8,14 @@ import useExpiredToken from '@hooks/useExpiredToken';
 
 type Props = {
   accounts: Account[];
+  totalLength: string;
   isExpired?: boolean;
 };
 
-function Accounts({ accounts, isExpired }: Props) {
+function Accounts({ accounts, isExpired, totalLength }: Props) {
   useExpiredToken(isExpired);
 
-  return <AccountsView accounts={accounts} />;
+  return <AccountsView accounts={accounts} totalLength={totalLength} />;
 }
 
 export default Accounts;
@@ -45,5 +46,5 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     }
   }
 
-  return { props: { accounts: accountsRes?.data } };
+  return { props: { accounts: accountsRes?.data, totalLength: accountsRes?.headers['x-total-count'] } };
 };
