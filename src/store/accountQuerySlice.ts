@@ -23,6 +23,9 @@ export const accountQuerySlice = createSlice({
     setPage: (state, action: { payload: number }) => {
       state.page = action.payload;
     },
+    setLimit: (state, action: { payload: number }) => {
+      state.limit = action.payload;
+    },
     setIsActive: (state, action: { payload: string }) => {
       if (action.payload === 'all') state.is_active = null;
       else state.is_active = action.payload;
@@ -41,4 +44,4 @@ export const accountQuerySlice = createSlice({
   },
 });
 
-export const { setPage, setIsActive, setBrokerId, setStatus } = accountQuerySlice.actions;
+export const { setPage, setLimit, setIsActive, setBrokerId, setStatus } = accountQuerySlice.actions;

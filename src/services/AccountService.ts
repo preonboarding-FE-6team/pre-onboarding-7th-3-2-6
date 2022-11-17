@@ -1,9 +1,32 @@
 import axios from '@utils/getAxios';
 import { Account } from '@type/account';
+import getQueryString from '@utils/getQueryString';
 
 const AccountsService = {
-  async getAccounts() {
-    const res = await axios({ bearer: true }).get<Account[]>('/accounts');
+  accountsQueryOptions: {
+    staleTime: 3 * 60 * 1000,
+    keepPreviousData: true,
+  },
+
+  accountsQueryConverter(key: string) {
+    switch (key) {
+      case 'page':
+        return '_page';
+      case 'limit':
+        return '_limit';
+      case 'brokerId':
+        return 'broker_id';
+      case 'isActive':
+        return 'is_active';
+      default:
+        return key;
+    }
+  },
+
+  async getAccounts(params: Record<string, unknown>) {
+    const res = await axios({ bearer: true }).get<Account[]>(
+      `/accounts?${getQueryString(params, this.accountsQueryConverter)}`
+    );
     return res.data;
   },
 
