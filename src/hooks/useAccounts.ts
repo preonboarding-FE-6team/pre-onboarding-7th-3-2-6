@@ -1,25 +1,23 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 
-import type { Account } from '@type/account';
 import AccountsService from '@services/AccountService';
 import useHeaderTitleDispatch from './useHeaderTitleDispatch';
 import useAccountQueryState from './useAccountQueryState';
 import useAccountQueryDispatch from './useAccountQueryDispatch';
 
-function useAccounts(accounts: Account[], initialQuery: Record<string, unknown>) {
+function useAccounts() {
+  const [enabled, setEnabled] = useState(false);
+  const router = useRouter();
   const accountQuery: Record<string, unknown> = useAccountQueryState();
-  const { dispatchPage, dispatchLimit, dispatchBrokerId, dispatchStatus, dispatchActivity } = useAccountQueryDispatch();
+  const { dispatchPage, dispatchLimit, dispatchBrokerId, dispatchStatus, dispatchActivity, dispatchSearch } =
+    useAccountQueryDispatch();
   const dispatchTitle = useHeaderTitleDispatch();
 
   const { data } = useQuery(['accounts', accountQuery], () => AccountsService.getAccounts(accountQuery), {
     ...AccountsService.accountsQueryOptions,
-    initialData:
-      initialQuery &&
-      Object.keys(accountQuery) === Object.keys(initialQuery) &&
-      Object.keys(accountQuery).every((key) => accountQuery[key] === initialQuery[key])
-        ? accounts
-        : undefined,
+    enabled,
   });
 
   useEffect(() => {
@@ -27,18 +25,25 @@ function useAccounts(accounts: Account[], initialQuery: Record<string, unknown>)
   }, []);
 
   useEffect(() => {
-    if (!initialQuery) {
-      return;
-    }
-    const { page = 1, limit = 30, broker_id = 'all', status = 'all', is_active = 'all' } = initialQuery;
+    const { page = 1, limit = 30, broker_id = 'all', status = 'all', is_active = 'all', search = '' } = router.query;
     dispatchPage(Number(page));
     dispatchLimit(Number(limit));
     dispatchBrokerId(String(broker_id));
     dispatchStatus(String(status));
     dispatchActivity(String(is_active));
-  }, [initialQuery]);
+    dispatchSearch(String(search ?? ''));
+    setEnabled(true);
+  }, [router.query]);
 
-  return { page: Number(accountQuery.page), limit: Number(accountQuery.limit), dispatchPage, data: data ?? [] };
+  return {
+    page: Number(accountQuery.page),
+    limit: Number(accountQuery.limit),
+    search: String(accountQuery.search),
+    dispatchPage,
+    dispatchSearch,
+    data: data?.data ?? [],
+    totalLength: data?.totalLength ?? 0,
+  };
 }
 
 export default useAccounts;

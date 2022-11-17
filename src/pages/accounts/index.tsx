@@ -7,40 +7,45 @@ import { COOKIE_TOKEN_KEY } from '@repositories/CookieTokenRepository';
 import useExpiredToken from '@hooks/useExpiredToken';
 import getQueryString from '@utils/getQueryString';
 import AccountsService from '@services/AccountService';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
 
 type Props = {
-  accounts: Account[];
-  initialQuery: Record<string, unknown>;
-  totalLength: string;
   isExpired?: boolean;
 };
 
-function Accounts({ accounts, initialQuery, totalLength, isExpired }: Props) {
+function Accounts({ isExpired }: Props) {
   useExpiredToken(isExpired);
 
-  return <AccountsView accounts={accounts} initialQuery={initialQuery} totalLength={totalLength} />;
+  return <AccountsView />;
 }
 
 export default Accounts;
 
 export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
   const token = req.cookies[COOKIE_TOKEN_KEY];
-  const { page = 1, limit = 30, ...restQuery } = query;
-  const initialQuery = { page, limit, ...restQuery };
-  let accountsRes;
+  const { page, limit, broker_id: brokerId = 'all', status = 'all', is_active: isActive = 'all', search = '' } = query;
+  const initialQuery = { page: Number(page) || 1, limit: Number(limit) || 30, brokerId, status, isActive, search };
+  const queryClient = new QueryClient();
 
-  try {
-    accountsRes = await axios.get<Account[]>(
-      `http://localhost:4000/accounts?${getQueryString(initialQuery, AccountsService.accountsQueryConverter)}`,
+  const queryFn = async () => {
+    const { data, headers } = await axios.get<Account[]>(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/accounts?${getQueryString(
+        initialQuery,
+        AccountsService.accountsQueryConverter
+      )}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
+    return { data, totalLength: Number(headers?.['x-total-count'] ?? 0) };
+  };
+
+  try {
+    await queryClient.prefetchQuery(['accounts', initialQuery], queryFn);
   } catch (error) {
     if (error instanceof AxiosError && error.response?.status === 401) {
       return {
         props: {
-          accounts: [],
           isExpired: true,
         },
       };
@@ -48,6 +53,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
   }
 
   return {
-    props: { accounts: accountsRes?.data ?? [], initialQuery, totalLength: accountsRes?.headers['x-total-count'] },
+    props: { dehydratedState: dehydrate(queryClient) },
   };
 };

@@ -13,7 +13,7 @@ function HeadColumn({ children, style }: Props) {
 
 export default HeadColumn;
 
-const Column = styled.td<{ customStyle?: FlattenInterpolation<ThemeProps<DefaultTheme>> }>`
+const Column = styled.th<{ customStyle?: FlattenInterpolation<ThemeProps<DefaultTheme>> }>`
   position: relative;
   ${flexBox()};
   padding: 10px 0;

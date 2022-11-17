@@ -1,26 +1,42 @@
 import styled from 'styled-components';
 import { HiOutlineSearch } from 'react-icons/hi';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { flexBox } from '@styles/mixins';
 
 type Props = {
+  search: string;
   dispatchSearch: (search: string) => void;
+  dispatchPage: (page: number) => void;
 };
 
-function SearchBar({ dispatchSearch }: Props) {
+function SearchBar({ search, dispatchSearch, dispatchPage }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleInitClick = () => {
     dispatchSearch('');
+    if (inputRef.current) {
+      if (inputRef.current.value) {
+        dispatchPage(1);
+      }
+      inputRef.current.value = '';
+    }
   };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputRef.current) {
       dispatchSearch(inputRef.current.value);
+      dispatchPage(1);
       inputRef.current.value = '';
     }
   };
+
+  useEffect(() => {
+    if (inputRef.current && search) {
+      inputRef.current.value = search;
+    }
+  }, [search, inputRef]);
 
   return (
     <Form onSubmit={handleSubmit}>

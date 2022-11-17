@@ -3,16 +3,18 @@ import styled from 'styled-components';
 type Props = {
   options: [string, string][];
   handleSelectChange: (option: string) => void;
-  defaultValue: string;
+  dispatchPage: (page: number) => void;
+  value: string;
 };
 
-function SelectBox({ options, handleSelectChange, defaultValue }: Props) {
+function SelectBox({ options, handleSelectChange, dispatchPage, value }: Props) {
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     handleSelectChange(e.target.value);
+    dispatchPage(1);
   };
 
   return (
-    <Select defaultValue={defaultValue} onChange={handleChange}>
+    <Select value={value} onChange={handleChange}>
       {options.map(([id, name]) => (
         <option key={id} value={id}>
           {name}

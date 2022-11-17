@@ -4,11 +4,9 @@ import { HiOutlineTemplate, HiOutlineTable, HiOutlineUsers, HiOutlineLogout } fr
 
 import { flexBox } from '@styles/mixins';
 import useUserURL from '@hooks/useUserURL';
-import useAccountURL from '@hooks/useAccountURL';
 import SiderItem from './SiderItem';
 
 function Sider() {
-  const accountURL = useAccountURL();
   const userURL = useUserURL();
 
   return (
@@ -16,7 +14,7 @@ function Sider() {
       <Title>D. PREFACE</Title>
       <ul>
         <SiderItem name="대시보드" href="/" Icon={HiOutlineTemplate} />
-        <SiderItem name="계좌 목록" href={accountURL} Icon={HiOutlineTable} />
+        <SiderItem name="계좌 목록" href="/accounts" Icon={HiOutlineTable} />
         <SiderItem name="사용자 목록" href={userURL} Icon={HiOutlineUsers} />
         <SiderItem name="로그아웃" href={null} Icon={HiOutlineLogout} />
       </ul>

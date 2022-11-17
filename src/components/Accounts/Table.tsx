@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { Account } from '@type/account';
 import TableBodyRow from '@components/Accounts/TableBodyRow';
+import useMount from '@hooks/useMount';
 import TableHeadRow from './TableHeadRow';
 
 type Props = {
@@ -10,6 +11,8 @@ type Props = {
 };
 
 function Table({ accounts }: Props) {
+  const isMount = useMount();
+
   return (
     <Container>
       <TableHead>
@@ -17,13 +20,14 @@ function Table({ accounts }: Props) {
           <TableHeadRow />
         </Row>
       </TableHead>
-      <tbody>
-        <Row>
-          {accounts.map((account) => (
-            <TableBodyRow key={account.uuid} account={account} />
-          ))}
-        </Row>
-      </tbody>
+      <TableBody>
+        {isMount || <tr />}
+        {accounts.map((account) => (
+          <Row key={account.uuid}>
+            <TableBodyRow account={account} />
+          </Row>
+        ))}
+      </TableBody>
     </Container>
   );
 }
@@ -34,6 +38,7 @@ const Container = styled.table`
   position: relative;
   width: 100%;
   border: 1px solid ${({ theme }) => theme.GRAY_BG};
+  border-collapse: collapse;
   border-bottom: none;
 `;
 
@@ -41,6 +46,12 @@ const TableHead = styled.thead`
   position: sticky;
   top: 0;
   z-index: 2;
+`;
+
+const TableBody = styled.tbody`
+  & > tr {
+    border-bottom: 1px solid ${({ theme }) => theme.GRAY_BG};
+  }
 `;
 
 const Row = styled.tr`
