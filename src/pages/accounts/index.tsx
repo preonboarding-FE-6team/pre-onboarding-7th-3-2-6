@@ -8,7 +8,7 @@ import getQueryString from '@utils/getQueryString';
 import AccountsService from '@services/AccountService';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 
-function Accounts({ isExpired }: Props) {
+function Accounts() {
   return <AccountsView />;
 }
 
