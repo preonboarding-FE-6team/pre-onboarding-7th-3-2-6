@@ -1,4 +1,4 @@
-import SigninView from '@components/Signin';
+import SigninView from '@components/signin';
 
 function Signin() {
   return <SigninView />;
