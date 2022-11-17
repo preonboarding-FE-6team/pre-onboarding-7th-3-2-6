@@ -5,6 +5,7 @@ import { HiOutlineUser, HiLogin } from 'react-icons/hi';
 import Button from '@components/signin/Button';
 import Input from '@components/signin/Input';
 import FormTitle from '@components/signin/FormTitle';
+import Seo from '@components/Layout/Seo';
 import useSignin from '@hooks/useSignin';
 import { flexBox } from '@styles/mixins';
 import ReLoginModal from './ReLoginModal';
@@ -18,6 +19,7 @@ function Signin({ isExpired }: Props) {
 
   return (
     <Container>
+      <Seo title="D. PREFACE | 로그인" />
       <Title>PREFACE</Title>
       <SubContainer>
         <ReLoginModal isExpired={isExpired} />
