@@ -5,6 +5,6 @@
     publish = "/opt/build/repo/out_publish"
     publishOrigin = "config"
     functionsDirectory = "/opt/build/repo/out_functions"
-[plugins]
+[[plugins]]
     origin = "ui"
     package = "@netlify/plugin-nextjs"
