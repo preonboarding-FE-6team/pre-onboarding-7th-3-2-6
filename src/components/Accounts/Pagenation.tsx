@@ -36,7 +36,7 @@ function Pagenation({ totalLength, contents, page, limit, dispatchPage }: Props)
       </Button>
 
       {generatePages().map((i: number) => (
-        <Page onClick={() => handleTargetClick(i)} className={i === page ? ' active' : ''}>
+        <Page key={i} onClick={() => handleTargetClick(i)} className={i === page ? ' active' : ''}>
           {i}
         </Page>
       ))}
