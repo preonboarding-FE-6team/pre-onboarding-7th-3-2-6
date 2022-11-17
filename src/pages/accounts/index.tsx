@@ -4,26 +4,24 @@ import axios, { AxiosError } from 'axios';
 import AccountsView from '@components/Accounts';
 import { Account } from '@type/account';
 import { COOKIE_TOKEN_KEY } from '@repositories/CookieTokenRepository';
-import useExpiredToken from '@hooks/useExpiredToken';
 import getQueryString from '@utils/getQueryString';
 import AccountsService from '@services/AccountService';
+
 
 type Props = {
   accounts: Account[];
   initialQuery: Record<string, unknown>;
   totalLength: string;
-  isExpired?: boolean;
 };
 
-function Accounts({ accounts, initialQuery, totalLength, isExpired }: Props) {
-  useExpiredToken(isExpired);
 
+function Accounts({ accounts, initialQuery, totalLength }: Props) {
   return <AccountsView accounts={accounts} initialQuery={initialQuery} totalLength={totalLength} />;
 }
 
 export default Accounts;
 
-export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res, query }) => {
   const token = req.cookies[COOKIE_TOKEN_KEY];
   const { page = 1, limit = 30, ...restQuery } = query;
   const initialQuery = { page, limit, ...restQuery };
@@ -38,11 +36,12 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
     );
   } catch (error) {
     if (error instanceof AxiosError && error.response?.status === 401) {
+      res.setHeader('Set-Cookie', [`${COOKIE_TOKEN_KEY}=null; Path=/`]);
       return {
-        props: {
-          accounts: [],
-          isExpired: true,
+        redirect: {
+          destination: '/signin',
         },
+        props: {},
       };
     }
   }

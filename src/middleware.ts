@@ -3,11 +3,10 @@ import { COOKIE_TOKEN_KEY } from '@repositories/CookieTokenRepository';
 
 export function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith('/signin')) {
-    if (request.cookies.get(COOKIE_TOKEN_KEY)) {
+    if (request.cookies.get(COOKIE_TOKEN_KEY) && !(request.cookies.get(COOKIE_TOKEN_KEY) === 'null')) {
       return NextResponse.redirect('http://localhost:3000/');
     }
   }
-
   if (
     request.nextUrl.pathname === '/' ||
     request.nextUrl.pathname.startsWith('/accounts') ||

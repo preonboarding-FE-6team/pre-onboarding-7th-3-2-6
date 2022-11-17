@@ -9,14 +9,18 @@ import useSignin from '@hooks/useSignin';
 import { flexBox } from '@styles/mixins';
 import ReLoginModal from './ReLoginModal';
 
-function Signin() {
+type Props = {
+  isExpired: boolean;
+};
+
+function Signin({ isExpired }: Props) {
   const { email, password, isFormValid, handleEmailChange, handlePasswordChange, handleSubmit } = useSignin();
 
   return (
     <Container>
       <Title>PREFACE</Title>
       <SubContainer>
-        <ReLoginModal />
+        <ReLoginModal isExpired={isExpired} />
         <FormTitle Icon={HiOutlineUser}>로그인</FormTitle>
         <Form onSubmit={handleSubmit}>
           <Input value={email} onChange={handleEmailChange} type="text" placeholder="아이디를 입력하세요" />
