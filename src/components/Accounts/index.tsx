@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Account } from '@type/account';
 import useAccounts from '@hooks/useAccounts';
 import useAccountQueryDispatch from '@hooks/useAccountQueryDispatch';
-import useAccountQueryState from '@hooks/useAccountQueryState';
 import Seo from '@components/Layout/Seo';
 import SearchBar from '@components/UI/SearchBar';
 import { flexBox } from '@styles/mixins';
@@ -13,13 +12,13 @@ import Filters from './Filters';
 
 type Props = {
   accounts: Account[];
+  initialQuery: Record<string, unknown>;
   totalLength: string;
 };
 
-function Accounts({ accounts, totalLength }: Props) {
-  const { page, limit } = useAccountQueryState();
-  const { dispatchPage, dispatchSearch } = useAccountQueryDispatch();
-  useAccounts();
+function Accounts({ accounts, initialQuery, totalLength }: Props) {
+  const { page, limit, dispatchPage, data } = useAccounts(accounts, initialQuery);
+  const { dispatchSearch } = useAccountQueryDispatch();
 
   return (
     <>
@@ -28,8 +27,8 @@ function Accounts({ accounts, totalLength }: Props) {
         <Filters />
         <SearchBar dispatchSearch={dispatchSearch} />
       </FilterAndSearch>
-      <Table accounts={accounts} />
-      <Pagenation contents={accounts} totalLength={totalLength} page={page} limit={limit} dispatchPage={dispatchPage} />
+      <Table accounts={data} />
+      <Pagenation contents={data} totalLength={totalLength} page={page} limit={limit} dispatchPage={dispatchPage} />
     </>
   );
 }
