@@ -4,8 +4,7 @@ import { COOKIE_TOKEN_KEY } from '@repositories/CookieTokenRepository';
 export function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith('/signin')) {
     if (request.cookies.get(COOKIE_TOKEN_KEY)) {
-      return NextResponse.redirect('http://localhost:3000/');
-      // return NextResponse.redirect('https://effervescent-frangollo-1c8184.netlify.app/');
+      return NextResponse.redirect('https://pre-onboarding-7th-3-2-6-eight.vercel.app/');
     }
   }
 
@@ -15,8 +14,7 @@ export function middleware(request: NextRequest) {
     request.nextUrl.pathname.startsWith('/users')
   ) {
     if (!request.cookies.get(COOKIE_TOKEN_KEY)) {
-      return NextResponse.redirect('http://localhost:3000/signin');
-      // return NextResponse.redirect('https://effervescent-frangollo-1c8184.netlify.app/signin');
+      return NextResponse.redirect('https://pre-onboarding-7th-3-2-6-eight.vercel.app/signin');
     }
   }
 }
