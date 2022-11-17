@@ -8,7 +8,6 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  target: 'serverless',
   async rewrites() {
     return [
       {

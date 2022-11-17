@@ -1,10 +1,6 @@
 [build]
-    command = "npm run build"
-    commandOrigin = "config"
-    environment = "NEXT_PRIVATE_TARGET"
-    publish = "/opt/build/repo/out_publish"
-    publishOrigin = "config"
-    functionsDirectory = "/opt/build/repo/out_functions"
+  command = "npm run build"
+  publish = ".next"
+
 [[plugins]]
-    origin = "ui"
-    package = "@netlify/plugin-nextjs"
+  package = "@netlify/plugin-nextjs"
