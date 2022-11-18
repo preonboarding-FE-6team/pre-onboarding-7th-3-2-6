@@ -4,7 +4,7 @@ import { COOKIE_TOKEN_KEY, TOKEN_EXPIRED } from '@repositories/CookieTokenReposi
 export function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith('/signin')) {
     if (request.cookies.get(COOKIE_TOKEN_KEY) && !(request.cookies.get(COOKIE_TOKEN_KEY) === TOKEN_EXPIRED)) {
-      return NextResponse.redirect('http://localhost:3000/');
+      return NextResponse.redirect(`${process.env.NEXT_PUBLIC_CLIENT_URL}`);
     }
   }
   if (
@@ -13,7 +13,7 @@ export function middleware(request: NextRequest) {
     request.nextUrl.pathname.startsWith('/users')
   ) {
     if (!request.cookies.get(COOKIE_TOKEN_KEY)) {
-      return NextResponse.redirect('http://localhost:3000/signin');
+      return NextResponse.redirect(`${process.env.NEXT_PUBLIC_CLIENT_URL}/signin`);
     }
   }
 }

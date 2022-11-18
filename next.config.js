@@ -4,7 +4,7 @@ const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
+  swcMinify: false,
   compiler: {
     styledComponents: true,
   },
