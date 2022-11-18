@@ -27,24 +27,26 @@ pw: rhkrgus01
 ![axios](https://camo.githubusercontent.com/23392fa4fc3ffb6ade29cba7aaffa7741daeb97012c70a062cf2370187d6519e/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6178696f732d4646434132383f7374796c653d666f722d7468652d6261646765266c6f676f3d6178696f73266c6f676f436f6c6f723d7768697465)
 ![Recoil](https://img.shields.io/badge/recoil-f26b00?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iNjAwIiB2aWV3Qm94PSIwIDAgNjAwIDYwMCI+PGxpbmsgeG1sbnM9IiIgdHlwZT0idGV4dC9jc3MiIGlkPSJkYXJrLW1vZGUiIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iIi8+PGcgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0xNDIuNTM2IDE5OC44NThjMCAyNi4zNi0yMS4zNjggNDcuNzItNDcuNzIgNDcuNzItMjYuMzYgMC00Ny43MjItMjEuMzYtNDcuNzIyLTQ3LjcyczIxLjM2LTQ3LjcyIDQ3LjcyLTQ3LjcyYzI2LjM1NSAwIDQ3LjcyMiAyMS4zNiA0Ny43MjIgNDcuNzIiLz48cGF0aCBkPSJNNTA1LjE4IDQxNC4yMjVIMjM4LjEyNGMtMzUuMjUgMC02My45MjYtMjguNjc0LTYzLjkyNi02My45MjNzMjguNjc4LTYzLjkyNiA2My45MjYtNjMuOTI2aDEyMC43OGMyMC44MTYgMCAzNy43NTMtMTYuOTM4IDM3Ljc1My0zNy43NTZzLTE2LjkzOC0zNy43NTYtMzcuNzUzLTM3Ljc1Nkg5NC44MWMtNy4yMjcgMC0xMy4wODYtNS44Ni0xMy4wODYtMTMuMDg1IDAtNy4yMjcgNS44Ni0xMy4wODYgMTMuMDg1LTEzLjA4NmgyNjQuMDkzYzM1LjI1IDAgNjMuOTIzIDI4LjY3OCA2My45MjMgNjMuOTI2cy0yOC42NzQgNjMuOTIzLTYzLjkyMyA2My45MjNoLTEyMC43OGMtMjAuODIgMC0zNy43NTYgMTYuOTM4LTM3Ljc1NiAzNy43NiAwIDIwLjgxNiAxNi45MzggMzcuNzUzIDM3Ljc1NiAzNy43NTNINTA1LjE4YzcuMjI3IDAgMTMuMDg2IDUuODYgMTMuMDg2IDEzLjA4NSAwIDcuMjI2LTUuODU4IDEzLjA4NS0xMy4wODUgMTMuMDg1eiIvPjxwYXRoIGQ9Ik00NTcuNDY0IDQwMS4xNDJjMC0yNi4zNiAyMS4zNi00Ny43MiA0Ny43Mi00Ny43MnM0Ny43MiAyMS4zNiA0Ny43MiA0Ny43Mi0yMS4zNiA0Ny43Mi00Ny43MiA0Ny43Mi00Ny43Mi0yMS4zNi00Ny43Mi00Ny43MiIvPjwvZz48c3R5bGUgeG1sbnM9IiIgaWQ9ImRhcmstbW9kZS1jdXN0b20tY29sb3IiPgoJCTpyb290ewoJCQktLWJnLWNvbG9yOnJnYmEoMjYsMjYsMjYsMSk7CgkJCS0tdGV4dC1jb2xvcjpyZ2JhKDExMCwxMTAsMTEwLDEpOwoJCQktLWEtY29sb3I6cmdiYSg5MCwxMjAsMTIwLDEpOwoJCQktLWEtdmlzaXRlZC1jb2xvcjpyZ2JhKDEyMCwxMjAsOTAsMSk7CgkJCS0tYS1ob3Zlci1jb2xvcjpyZ2JhKDIxMSwyMTEsMjExLDEpOwoJCQktLWlucHV0LWJvcmRlci1jb2xvcjpyZ2JhKDIxMSwyMTEsMjExLDAuMik7CgkJCS0taW5wdXQtcGxhY2Vob2xkZXItY29sb3I6cmdiYSgxNzMsMjE2LDIzMCwxKTsKCQkJLS1kaWFsb2ctYmctY29sb3I6cmdiYSgzNiwzNiwzNiwwLjk1KTsKCQkJLS1iZy1pbWFnZTpsaW5lYXItZ3JhZGllbnQocmdiYSgyNiwyNiwyNiwxKSxyZ2JhKDI2LDI2LDI2LDEpKTsKCQl9Cgk8L3N0eWxlPjwvc3ZnPg==)
 <img alt="Redux" src="https://img.shields.io/badge/Redux-7649BB.svg?&style=for-the-badge&logo=Redux&logoColor=white"/>
-<img alt="Nextjs" src="https://img.shields.io/badge/Next.js-000000.svg?&style=for-the-badge&logo=Next.js&logoColor=white"/>
 <img height="29" alt="React-query" src="https://img.shields.io/badge/React Query-FF4154?style=flat&logo=React Query&logoColor=white"/>
+<img alt="Nextjs" src="https://img.shields.io/badge/Next.js-000000.svg?&style=for-the-badge&logo=Next.js&logoColor=white"/>
+
 </div>
 
-# 🖥 Demo
-로그인|계좌목록 정렬
-:-|:-
-![login (1)](https://user-images.githubusercontent.com/102936206/202605000-8e583df3-1ba7-41be-8f4a-f8ac786c748d.gif)|![filter-preface](https://user-images.githubusercontent.com/102936206/202604777-a30ca0b6-2888-492d-94f6-7dd1dcd25df0.gif)
-**계좌목록-페이지네이션,검색**|**계좌상세-계좌명변경**
-![pagenation-search-preface](https://user-images.githubusercontent.com/102936206/202605337-29486e7b-4b35-406d-86ff-f6c677b381a2.gif)|![pagenation-search-preface](https://user-images.githubusercontent.com/102936206/202604831-89fed3d3-2c5d-4ee6-9a8d-8312ebce6c98.gif)
-**사용자목록-정렬**|**사용자목록-페이네이션검색**
-![filter-preface-users](https://user-images.githubusercontent.com/102936206/202605368-fbcc6265-5edc-4103-a2b7-0812301860f9.gif)|![pagenation-search-preface-users](https://user-images.githubusercontent.com/102936206/202605419-b43de6ff-3648-440d-abb4-d66899a93cd0.gif)
-**사용자명수정, 사용자삭제**
-![edit-delete-users](https://user-images.githubusercontent.com/102936206/202605488-42fb6793-ebca-4500-b2ec-5d0c69d84f0a.gif)
+# **📢 프로젝트 실행방법**
 
+실행할 때 반드시 다음 파일을 최상단에 생성후 실행 해주셔야 합니다.
 
+```jsx
+// .env.local
+NEXT_PUBLIC_SERVER_URL='https://preonboarding-json-server.herokuapp.com'
+NEXT_PUBLIC_CLIENT_URL='http://localhost:3000'
 
+```
 
+```jsx
+npm install // 설치
+npm run dev // 실행
+```
 
 # 🚀 기능요구사항
 
@@ -466,21 +468,16 @@ const { mutate } = useMutation((data: { name: string }) => UserService.patchUser
   });
 ```
 
-# **📢 프로젝트 실행방법**
-
-실행할 때 반드시 다음 파일을 최상단에 생성후 실행 해주셔야 합니다.
-
-```jsx
-// .env.local
-NEXT_PUBLIC_SERVER_URL='https://preonboarding-json-server.herokuapp.com'
-NEXT_PUBLIC_CLIENT_URL='http://localhost:3000'
-
-```
-
-```jsx
-npm install // 설치
-npm run dev // 실행
-```
+# 🖥 Demo
+로그인|계좌목록 정렬
+:-|:-
+![login (1)](https://user-images.githubusercontent.com/102936206/202605000-8e583df3-1ba7-41be-8f4a-f8ac786c748d.gif)|![filter-preface](https://user-images.githubusercontent.com/102936206/202604777-a30ca0b6-2888-492d-94f6-7dd1dcd25df0.gif)
+**계좌목록-페이지네이션,검색**|**계좌상세-계좌명변경**
+![pagenation-search-preface](https://user-images.githubusercontent.com/102936206/202605337-29486e7b-4b35-406d-86ff-f6c677b381a2.gif)|![pagenation-search-preface](https://user-images.githubusercontent.com/102936206/202604831-89fed3d3-2c5d-4ee6-9a8d-8312ebce6c98.gif)
+**사용자목록-정렬**|**사용자목록-페이네이션검색**
+![filter-preface-users](https://user-images.githubusercontent.com/102936206/202605368-fbcc6265-5edc-4103-a2b7-0812301860f9.gif)|![pagenation-search-preface-users](https://user-images.githubusercontent.com/102936206/202605419-b43de6ff-3648-440d-abb4-d66899a93cd0.gif)
+**사용자명수정, 사용자삭제**
+![edit-delete-users](https://user-images.githubusercontent.com/102936206/202605488-42fb6793-ebca-4500-b2ec-5d0c69d84f0a.gif)
 
 # 📦 파일구조
 ```
