@@ -8,7 +8,7 @@ import FormTitle from '@components/signin/FormTitle';
 import Seo from '@components/Layout/Seo';
 import useSignin from '@hooks/useSignin';
 import { flexBox } from '@styles/mixins';
-import ReLoginModal from './ReLoginModal';
+import ReLoginModal from './alertModal';
 
 type Props = {
   isExpired: boolean;

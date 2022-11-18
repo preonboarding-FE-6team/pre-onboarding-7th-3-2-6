@@ -4,7 +4,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import { accountQuerySlice } from './accountQuerySlice';
 import { headerTitleSlice } from './headerTitleSlice';
-import { reLoginModalSlice } from './reLoginModalSlice';
+import { alertModalSlice } from './alertModalSlice';
 import { userQuerySlice } from './userQuerySlice';
 
 // const persistConfig = {
@@ -16,7 +16,7 @@ const rootReducer = combineReducers({
   [accountQuerySlice.name]: accountQuerySlice.reducer,
   [userQuerySlice.name]: userQuerySlice.reducer,
   [headerTitleSlice.name]: headerTitleSlice.reducer,
-  [reLoginModalSlice.name]: reLoginModalSlice.reducer,
+  [alertModalSlice.name]: alertModalSlice.reducer,
 });
 
 // const persistedReducer = persistReducer(persistConfig, rootReducer);
