@@ -1,21 +1,49 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useQuery } from '@tanstack/react-query';
 
+import AccountsService from '@services/AccountService';
 import useHeaderTitleDispatch from './useHeaderTitleDispatch';
-import useAccountURL from './useAccountURL';
+import useAccountQueryState from './useAccountQueryState';
+import useAccountQueryDispatch from './useAccountQueryDispatch';
 
 function useAccounts() {
-  const accountURL = useAccountURL();
+  const [enabled, setEnabled] = useState(false);
   const router = useRouter();
+  const accountQuery: Record<string, unknown> = useAccountQueryState();
+  const { dispatchPage, dispatchLimit, dispatchBrokerId, dispatchStatus, dispatchActivity, dispatchSearch } =
+    useAccountQueryDispatch();
   const dispatchTitle = useHeaderTitleDispatch();
 
-  useEffect(() => {
-    router.push(accountURL);
-  }, [accountURL]);
+  const { data } = useQuery(['accounts', accountQuery], () => AccountsService.getAccounts(accountQuery), {
+    ...AccountsService.accountsQueryOptions,
+    enabled,
+  });
 
   useEffect(() => {
     dispatchTitle('계좌 목록');
   }, []);
+
+  useEffect(() => {
+    const { page = 1, limit = 30, broker_id = 'all', status = 'all', is_active = 'all', search = '' } = router.query;
+    dispatchPage(Number(page));
+    dispatchLimit(Number(limit));
+    dispatchBrokerId(String(broker_id));
+    dispatchStatus(String(status));
+    dispatchActivity(String(is_active));
+    dispatchSearch(String(search ?? ''));
+    setEnabled(true);
+  }, [router.query]);
+
+  return {
+    page: Number(accountQuery.page),
+    limit: Number(accountQuery.limit),
+    search: String(accountQuery.search),
+    dispatchPage,
+    dispatchSearch,
+    data: data?.totalLength ? data?.data ?? [] : [],
+    totalLength: data?.totalLength ?? 0,
+  };
 }
 
 export default useAccounts;

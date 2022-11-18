@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import UserService from '@services/UserService';
 import { User } from '@type/user';
@@ -11,9 +11,11 @@ function useUserNameEdit(
   setUserData: React.Dispatch<React.SetStateAction<User>>
 ) {
   const { isEditMode, handleEditClick, handleEditCancle } = useEdit();
+  const queryClient = useQueryClient();
   const { mutate } = useMutation((data: { name: string }) => UserService.patchUser(userData.uuid, data), {
     onSuccess: (data) => {
       setUserData(data);
+      queryClient.invalidateQueries(['users']);
     },
   });
 

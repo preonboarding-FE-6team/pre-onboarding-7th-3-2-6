@@ -1,4 +1,6 @@
-import { setIsActive, setIsStaff, setPage } from '@store/userQuerySlice';
+import { setLimit } from '@store/accountQuerySlice';
+import { setIsActive, setIsStaff, setPage, setSearch } from '@store/userQuerySlice';
+import setQueryParams from '@utils/setQueryParams';
 import { useDispatch } from 'react-redux';
 
 function useUserQueryDispatch() {
@@ -6,17 +8,30 @@ function useUserQueryDispatch() {
 
   const dispatchIsActive = (isActive: string) => {
     dispatch(setIsActive(isActive));
+    setQueryParams({ is_active: isActive });
   };
 
   const dispatchIsStaff = (isStaff: string) => {
     dispatch(setIsStaff(isStaff));
+    setQueryParams({ is_staff: isStaff });
   };
 
   const dispatchPage = (page: number) => {
     dispatch(setPage(page));
+    setQueryParams({ page });
   };
 
-  return { dispatchIsActive, dispatchIsStaff, dispatchPage };
+  const dispatchSearch = (search: string) => {
+    dispatch(setSearch(search.trim()));
+    setQueryParams({ search: search.trim() });
+  };
+
+  const dispatchLimit = (limit: number) => {
+    dispatch(setLimit(limit));
+    setQueryParams({ limit });
+  };
+
+  return { dispatchIsActive, dispatchIsStaff, dispatchPage, dispatchSearch, dispatchLimit };
 }
 
 export default useUserQueryDispatch;

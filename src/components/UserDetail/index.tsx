@@ -19,10 +19,7 @@ type Props = {
 
 function UserDetail({ user, accounts }: Props) {
   const dispatchTitle = useHeaderTitleDispatch();
-  const { isOpenModal, handleOpenModal, handleCancelModal, handleDelete } = useDeleteModal(
-    UserService.deleteUser,
-    '/users'
-  );
+  const { isOpenModal, handleOpenModal, handleCancelModal, handleDelete } = useDeleteModal(UserService.deleteUser);
 
   useEffect(() => {
     dispatchTitle(`${user.name}의 계좌 목록`);
@@ -34,7 +31,7 @@ function UserDetail({ user, accounts }: Props) {
       <Title>사용자 정보</Title>
       <UserInfoTable user={user} />
       <SubTitle>증권 계좌 목록</SubTitle>
-      <Table accounts={accounts} isSelectBox={false} />
+      <Table accounts={accounts} />
       <ButtonContainer>
         <Button onClick={handleOpenModal}>사용자 삭제</Button>
       </ButtonContainer>
