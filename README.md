@@ -71,6 +71,18 @@ npm run dev // 실행
         - 휴대폰 번호 (가운데 4자리 `***` 로 마스킹)
 - **사용자 상세**
 
+## 🖥 Demo
+로그인|계좌목록 정렬
+:-|:-
+![login (1)](https://user-images.githubusercontent.com/102936206/202605000-8e583df3-1ba7-41be-8f4a-f8ac786c748d.gif)|![filter-preface](https://user-images.githubusercontent.com/102936206/202604777-a30ca0b6-2888-492d-94f6-7dd1dcd25df0.gif)
+**계좌목록-페이지네이션,검색**|**계좌상세-계좌명변경**
+![pagenation-search-preface](https://user-images.githubusercontent.com/102936206/202605337-29486e7b-4b35-406d-86ff-f6c677b381a2.gif)|![pagenation-search-preface](https://user-images.githubusercontent.com/102936206/202604831-89fed3d3-2c5d-4ee6-9a8d-8312ebce6c98.gif)
+**사용자목록-정렬**|**사용자목록-페이네이션검색**
+![filter-preface-users](https://user-images.githubusercontent.com/102936206/202605368-fbcc6265-5edc-4103-a2b7-0812301860f9.gif)|![pagenation-search-preface-users](https://user-images.githubusercontent.com/102936206/202605419-b43de6ff-3648-440d-abb4-d66899a93cd0.gif)
+**사용자명수정, 사용자삭제**
+![edit-delete-users](https://user-images.githubusercontent.com/102936206/202605488-42fb6793-ebca-4500-b2ec-5d0c69d84f0a.gif)
+
+
 ## **👍 Best Practice**
 
 ### 1. 레이아웃
@@ -468,16 +480,7 @@ const { mutate } = useMutation((data: { name: string }) => UserService.patchUser
   });
 ```
 
-## 🖥 Demo
-로그인|계좌목록 정렬
-:-|:-
-![login (1)](https://user-images.githubusercontent.com/102936206/202605000-8e583df3-1ba7-41be-8f4a-f8ac786c748d.gif)|![filter-preface](https://user-images.githubusercontent.com/102936206/202604777-a30ca0b6-2888-492d-94f6-7dd1dcd25df0.gif)
-**계좌목록-페이지네이션,검색**|**계좌상세-계좌명변경**
-![pagenation-search-preface](https://user-images.githubusercontent.com/102936206/202605337-29486e7b-4b35-406d-86ff-f6c677b381a2.gif)|![pagenation-search-preface](https://user-images.githubusercontent.com/102936206/202604831-89fed3d3-2c5d-4ee6-9a8d-8312ebce6c98.gif)
-**사용자목록-정렬**|**사용자목록-페이네이션검색**
-![filter-preface-users](https://user-images.githubusercontent.com/102936206/202605368-fbcc6265-5edc-4103-a2b7-0812301860f9.gif)|![pagenation-search-preface-users](https://user-images.githubusercontent.com/102936206/202605419-b43de6ff-3648-440d-abb4-d66899a93cd0.gif)
-**사용자명수정, 사용자삭제**
-![edit-delete-users](https://user-images.githubusercontent.com/102936206/202605488-42fb6793-ebca-4500-b2ec-5d0c69d84f0a.gif)
+
 
 ## 📦 파일구조
 ```
