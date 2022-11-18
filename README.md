@@ -1,22 +1,22 @@
 # **📖 3주차 과제 2 - Best Practice**
 
-## **과제 :**  투자 관리 서비스의 관리자 기능 구현
+### **과제 :**  투자 관리 서비스의 관리자 기능 구현
 
 > 기간 :2022년 11월 12일(토) - 2022년 11월 18일(금)
 <br/>**📎[배포링크 바로가기](https://pre-onboarding-7th-3-2-6-gold.vercel.app/)**
 
-## 테스트계정
+### 테스트계정
 id: rhkrgus01@test.com<br/>
 pw: rhkrgus01
 
-# 👨‍👩‍👧‍👦 Members
+## 👨‍👩‍👧‍👦 Members
 
 | 최승진<br/>(팀장)                                                                                     | 임준홍<br/>(부팀장)                                                                                 | 문도연<br/>(서기)                                                                                        | 최원오<br/>(부서기)                                                                                     | 소윤호<br/>(부서기)                                                                                 | 선민경<br/>(팀원)                                                                                       | 곽현<br/>(팀원)                                                                                         | 이유진<br/>(팀원)                                                                                       |
 | ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
 | <img src="https://avatars.githubusercontent.com/u/46988995?v=4" alt="tooooo1" width="60" height="60"> | <img src="https://avatars.githubusercontent.com/u/67459853?v=4" alt="helen" width="60" height="60"> | <img src="https://avatars.githubusercontent.com/u/102936206?v=4" alt="magictaro" width="60" height="60"> | <img src="https://avatars.githubusercontent.com/u/99406837?v=4" alt="magictaro" width="60" height="60"> | <img src="https://avatars.githubusercontent.com/u/30254570?v=4" alt="flora" width="60" height="60"> | <img src="https://avatars.githubusercontent.com/u/76088728?v=4" alt="magictaro" width="60" height="60"> | <img src="https://avatars.githubusercontent.com/u/73919235?v=4" alt="magictaro" width="60" height="60"> | <img src="https://avatars.githubusercontent.com/u/42020919?v=4" alt="magictaro" width="60" height="60"> |
 | <a href="https://github.com/yondo123">yondo123<a/>| <a href="https://github.com/tesseractjh">tesseractjh<a/> | <a href="https://github.com/Moondoyeon">Moondoyeon</a>| <a href="https://github.com/choi1five">choi1five<a/>                                                                                               | <a href="https://github.com/younhoso">younhoso<a/>                                                                                            | <a href="https://github.com/seonsy44">seonsy44<a/>                                                                                                | <a href="https://github.com/kwakhyun">kwakhyun<a/>                                                                                                | <a href="https://github.com/2ujin">2ujin<a/>                                                                                                   |
 
-# **⚡️ Skills**
+## **⚡️ Skills**
 
 
 <div align="center">
@@ -32,7 +32,7 @@ pw: rhkrgus01
 
 </div>
 
-# **📢 프로젝트 실행방법**
+## **📢 프로젝트 실행방법**
 
 실행할 때 반드시 다음 파일을 최상단에 생성후 실행 해주셔야 합니다.
 
@@ -48,7 +48,7 @@ npm install // 설치
 npm run dev // 실행
 ```
 
-# 🚀 기능요구사항
+## 🚀 기능요구사항
 
 - **레이아웃**
     - Header - 현재 보고있는 메뉴 와 사용자명 보여줘야 함
@@ -71,9 +71,9 @@ npm run dev // 실행
         - 휴대폰 번호 (가운데 4자리 `***` 로 마스킹)
 - **사용자 상세**
 
-# **👍 Best Practice**
+## **👍 Best Practice**
 
-## 1. 레이아웃
+### 1. 레이아웃
 
 공통 컴포넌트로 분리 (레이아웃이 불필요한 
 
@@ -125,7 +125,7 @@ function Layout({ children }: Props) {
 
 export default Layout;
 ```
-## 2.  로그인
+### 2.  로그인
 - 쿠키사용 - SSR을 위한 **`getServerSideProps`** 함수는 서버에서 호출되기때문에 로컬스토리지나 세션스토리지의 경우 접근 어려움
 ```tsx
 const { mutate } = useMutation((data: { email: string; password: string }) => AuthService.signin(data), {
@@ -158,7 +158,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, query }
     }
   }
   ```
-## 3. 계좌 목록 / 사용자 목록
+### 3. 계좌 목록 / 사용자 목록
 ### Universal SSR
 최초 1회 불러올 때 SSR로 렌더링, 그 이후 필터 변경/페이지 변경/검색어 변경 등이 일어나면 CSR로 렌더링
 ```tsx
@@ -316,7 +316,7 @@ function Pagenation({ contents, totalLength, page, limit, dispatchPage }: Props)
 ```
 
 
-## 4. 리덕스를 사용한 상태관리
+### 4. 리덕스를 사용한 상태관리
 
 - redux-toolkit의 slice를 활용하여 관심사 별 상태 분리
     - accoutQuery - 계좌 목록 페이지 페이지네이션 및 필터 관리
@@ -388,7 +388,7 @@ function useUserQueryDispatch() {
 export default useUserQueryDispatch;
 ```
 
-## 5. React-Query를 사용한 api 요청
+### 5. React-Query를 사용한 api 요청
 
 axios 요청을 하는 서비스 로직은 분리하고 리액트쿼리의 useMutation을 활용한 커스텀 훅을 만들어 서버데이터의 변경작업(사용자 추가 및 삭제, 사용자명 변경, 로그인)을 요청하였습니다.
 
@@ -468,7 +468,7 @@ const { mutate } = useMutation((data: { name: string }) => UserService.patchUser
   });
 ```
 
-# 🖥 Demo
+## 🖥 Demo
 로그인|계좌목록 정렬
 :-|:-
 ![login (1)](https://user-images.githubusercontent.com/102936206/202605000-8e583df3-1ba7-41be-8f4a-f8ac786c748d.gif)|![filter-preface](https://user-images.githubusercontent.com/102936206/202604777-a30ca0b6-2888-492d-94f6-7dd1dcd25df0.gif)
@@ -479,7 +479,7 @@ const { mutate } = useMutation((data: { name: string }) => UserService.patchUser
 **사용자명수정, 사용자삭제**
 ![edit-delete-users](https://user-images.githubusercontent.com/102936206/202605488-42fb6793-ebca-4500-b2ec-5d0c69d84f0a.gif)
 
-# 📦 파일구조
+## 📦 파일구조
 ```
 📦src
  ┣ 📂components
@@ -584,7 +584,7 @@ const { mutate } = useMutation((data: { name: string }) => UserService.patchUser
  ┗ 📜middleware.ts
 ```
 
-# **📚 팀 규칙**
+## **📚 팀 규칙**
 
 - **📕 Git commit convention**
     
