@@ -33,13 +33,13 @@ pw: rhkrgus01
 
 # 🖥 Demo
 로그인|계좌목록 정렬
--|-
+:-|:-
 ![login (1)](https://user-images.githubusercontent.com/102936206/202605000-8e583df3-1ba7-41be-8f4a-f8ac786c748d.gif)|![filter-preface](https://user-images.githubusercontent.com/102936206/202604777-a30ca0b6-2888-492d-94f6-7dd1dcd25df0.gif)
-계좌목록 페이지네이션,검색|계좌상세:계좌명변경
+**계좌목록-페이지네이션,검색**|**계좌상세-계좌명변경**
 ![pagenation-search-preface](https://user-images.githubusercontent.com/102936206/202605337-29486e7b-4b35-406d-86ff-f6c677b381a2.gif)|![pagenation-search-preface](https://user-images.githubusercontent.com/102936206/202604831-89fed3d3-2c5d-4ee6-9a8d-8312ebce6c98.gif)
-사용자목록 정렬|사용자 목록 페이네이션검색
+**사용자목록-정렬**|**사용자목록-페이네이션검색**
 ![filter-preface-users](https://user-images.githubusercontent.com/102936206/202605368-fbcc6265-5edc-4103-a2b7-0812301860f9.gif)|![pagenation-search-preface-users](https://user-images.githubusercontent.com/102936206/202605419-b43de6ff-3648-440d-abb4-d66899a93cd0.gif)
-사용자명수정,사용자삭제
+**사용자명수정, 사용자삭제**
 ![edit-delete-users](https://user-images.githubusercontent.com/102936206/202605488-42fb6793-ebca-4500-b2ec-5d0c69d84f0a.gif)
 
 
@@ -78,6 +78,7 @@ pw: rhkrgus01
 - header, Sider, footer 와 같은 컴포넌트를 합쳐 공통된 레이아웃을 적용하였습니다.
 - pathname에 따라 레이아웃(Sider, Header, Footer) 렌더링 여부를 결정했습니다.
 ```tsx
+// pages/_app.tsx
 function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
@@ -96,6 +97,7 @@ function App({ Component, pageProps }: AppProps) {
 }
 ```
 ```tsx
+// components/Layout/index.tsx
 function Layout({ children }: Props) {
   const { pathname, asPath } = useRouter();
   const contentRef = useRef<HTMLDivElement>(null);
@@ -158,6 +160,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, query }
 ### Universal SSR
 최초 1회 불러올 때 SSR로 렌더링, 그 이후 필터 변경/페이지 변경/검색어 변경 등이 일어나면 CSR로 렌더링
 ```tsx
+// pages/accounts/index.tsx
 export const getServerSideProps: GetServerSideProps = async ({ req, res, query }) => {
   const token = req.cookies[COOKIE_TOKEN_KEY];
   const { page, limit, broker_id: brokerId = 'all', status = 'all', is_active: isActive = 'all', search = '' } = query;
@@ -196,6 +199,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, query }
 1. 서버에서 클라이언트로부터 쿠키를 통해 토큰을 받아오고, 이 토큰을 통해 API 요청을 보낸다. 
 2. React Query Client를 생성하여 API 요청의 결과를 prefetch하고 pageProps로 dehydrate하여 전달한다.
 ```tsx
+// pages/_app.tsx
 const queryClient = new QueryClient();
 
 function App({ Component, pageProps }: AppProps) {
@@ -260,6 +264,7 @@ export const parseAccountNumber = (number: string) => {
 - response Header의 X-Total-Count에 totalLength로 전체 페이지 수 계산
 
 ```jsx
+// src/hooks/useAccount.ts
 const { data } = useQuery(['accounts', accountQuery], () => AccountsService.getAccounts(accountQuery), {
   ...AccountsService.accountsQueryOptions,
   enabled,
@@ -281,6 +286,7 @@ return {
 사용하는 함수
 
 ```jsx
+// src/components/Accounts/Pagenation.tsx
 function Pagenation({ contents, totalLength, page, limit, dispatchPage }: Props) {
 	...
 	const totalPage = Math.ceil(Number(totalLength) / limit);
