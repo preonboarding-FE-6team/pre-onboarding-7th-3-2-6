@@ -3,34 +3,32 @@ import axios, { AxiosError } from 'axios';
 
 import UsersView from '@components/Users';
 import { COOKIE_TOKEN_KEY, TOKEN_EXPIRED } from '@repositories/CookieTokenRepository';
-import { User } from '@type/user';
+import type { User } from '@type/user';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
+import getQueryString from '@utils/getQueryString';
+import UserService from '@services/UserService';
 
-type Props = {
-  users: User[];
-  totalLength: string;
-};
-
-function Users({ users, totalLength }: Props) {
-  return <UsersView users={users} totalLength={totalLength} />;
+function Users() {
+  return <UsersView />;
 }
 
 export default Users;
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res, query }) => {
   const token = req.cookies[COOKIE_TOKEN_KEY];
-  const urlArray = req.url?.split('?');
-  let usersRes;
+  const { page, limit, is_active: isActive = 'all', is_staff: isStaff = 'all', search = '' } = query;
+  const initialQuery = { page: Number(page) || 1, limit: Number(limit) || 30, isActive, isStaff, search };
+  const queryClient = new QueryClient();
 
   try {
-    if (urlArray && urlArray.length > 1) {
-      usersRes = await axios.get<User[]>(`http://localhost:4000/users?${urlArray[1]}`, {
+    const { data, headers } = await axios.get<User>(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/users?${getQueryString(initialQuery, UserService.usersQueryConverter)}`,
+      {
         headers: { Authorization: `Bearer ${token}` },
-      });
-    } else {
-      usersRes = await axios.get<User[]>(`http://localhost:4000/users?_page=1&_limit=30`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-    }
+      }
+    );
+    const queryFn = () => Promise.resolve({ data, totalLength: Number(headers?.['x-total-count'] ?? 0) });
+    await queryClient.prefetchQuery(['users', initialQuery], queryFn);
   } catch (error) {
     if (error instanceof AxiosError && error.response?.status === 401) {
       res.setHeader('Set-Cookie', [`${COOKIE_TOKEN_KEY}=${TOKEN_EXPIRED}; Path=/`]);
@@ -43,5 +41,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     }
   }
 
-  return { props: { users: usersRes?.data, totalLength: usersRes?.headers['x-total-count'] } };
+  return {
+    props: { dehydratedState: dehydrate(queryClient) },
+  };
 };

@@ -33,7 +33,7 @@ function SearchBar({ search, dispatchSearch, dispatchPage }: Props) {
   };
 
   useEffect(() => {
-    if (inputRef.current && search) {
+    if (inputRef.current && typeof search === 'string') {
       inputRef.current.value = search;
     }
   }, [search, inputRef]);

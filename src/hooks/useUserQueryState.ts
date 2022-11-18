@@ -6,7 +6,8 @@ function useUserQueryState() {
 
   const isActive = userQuery.is_active ?? 'all';
   const isStaff = userQuery.is_staff ?? 'all';
-  const { page, limit, search } = userQuery;
+  const search = userQuery.search ?? '';
+  const { page, limit } = userQuery;
 
   return { isActive, isStaff, page, limit, search };
 }

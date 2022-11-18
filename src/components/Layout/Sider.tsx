@@ -3,19 +3,16 @@ import styled from 'styled-components';
 import { HiOutlineTemplate, HiOutlineTable, HiOutlineUsers, HiOutlineLogout } from 'react-icons/hi';
 
 import { flexBox } from '@styles/mixins';
-import useUserURL from '@hooks/useUserURL';
 import SiderItem from './SiderItem';
 
 function Sider() {
-  const userURL = useUserURL();
-
   return (
     <Container>
       <Title>D. PREFACE</Title>
       <ul>
         <SiderItem name="대시보드" href="/" Icon={HiOutlineTemplate} />
         <SiderItem name="계좌 목록" href="/accounts" Icon={HiOutlineTable} />
-        <SiderItem name="사용자 목록" href={userURL} Icon={HiOutlineUsers} />
+        <SiderItem name="사용자 목록" href="/users" Icon={HiOutlineUsers} />
         <SiderItem name="로그아웃" href={null} Icon={HiOutlineLogout} />
       </ul>
     </Container>

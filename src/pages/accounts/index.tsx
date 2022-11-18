@@ -20,7 +20,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, query }
   const initialQuery = { page: Number(page) || 1, limit: Number(limit) || 30, brokerId, status, isActive, search };
   const queryClient = new QueryClient();
 
-  const queryFn = async () => {
+  try {
     const { data, headers } = await axios.get<Account[]>(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/accounts?${getQueryString(
         initialQuery,
@@ -30,10 +30,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, query }
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    return { data, totalLength: Number(headers?.['x-total-count'] ?? 0) };
-  };
-
-  try {
+    const queryFn = () => Promise.resolve({ data, totalLength: Number(headers?.['x-total-count'] ?? 0) });
     await queryClient.prefetchQuery(['accounts', initialQuery], queryFn);
   } catch (error) {
     if (error instanceof AxiosError && error.response?.status === 401) {

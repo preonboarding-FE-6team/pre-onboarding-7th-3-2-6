@@ -41,7 +41,7 @@ function useAccounts() {
     search: String(accountQuery.search),
     dispatchPage,
     dispatchSearch,
-    data: data?.data ?? [],
+    data: data?.totalLength ? data?.data ?? [] : [],
     totalLength: data?.totalLength ?? 0,
   };
 }
