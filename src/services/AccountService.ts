@@ -18,16 +18,18 @@ const AccountsService = {
         return 'broker_id';
       case 'isActive':
         return 'is_active';
+      case 'search':
+        return 'q';
       default:
         return key;
     }
   },
 
   async getAccounts(params: Record<string, unknown>) {
-    const res = await axios({ bearer: true }).get<Account[]>(
+    const { data, headers } = await axios({ bearer: true }).get<Account[]>(
       `/accounts?${getQueryString(params, this.accountsQueryConverter)}`
     );
-    return res.data;
+    return { data, totalLength: Number(headers?.['x-total-count'] ?? 0) };
   },
 
   async patchAccount(id: string, data: { name: string }) {

@@ -7,8 +7,9 @@ import { getSelectOptions } from '@utils/getSelectOptions';
 import styled from 'styled-components';
 
 function Filters() {
-  const { dispatchBrokerId, dispatchStatus, dispatchActivity } = useAccountQueryDispatch();
-  const { brokerId, status, isActive } = useAccountQueryState();
+  const { dispatchPage, dispatchBrokerId, dispatchStatus, dispatchActivity } = useAccountQueryDispatch();
+  const accountQuery = useAccountQueryState();
+  const { brokerId, status, isActive } = accountQuery;
 
   const brokerOptions = getSelectOptions(brokers, '증권사(전체)');
   const accountStatusOptions = getSelectOptions(accountStatus, '운용상태(전체)');
@@ -16,9 +17,24 @@ function Filters() {
 
   return (
     <Container>
-      <SelectBox options={brokerOptions} handleSelectChange={dispatchBrokerId} defaultValue={brokerId} />
-      <SelectBox options={accountStatusOptions} handleSelectChange={dispatchStatus} defaultValue={status} />
-      <SelectBox options={accountActivityOptions} handleSelectChange={dispatchActivity} defaultValue={isActive} />
+      <SelectBox
+        options={brokerOptions}
+        handleSelectChange={dispatchBrokerId}
+        dispatchPage={dispatchPage}
+        value={brokerId}
+      />
+      <SelectBox
+        options={accountStatusOptions}
+        handleSelectChange={dispatchStatus}
+        dispatchPage={dispatchPage}
+        value={status}
+      />
+      <SelectBox
+        options={accountActivityOptions}
+        handleSelectChange={dispatchActivity}
+        dispatchPage={dispatchPage}
+        value={isActive}
+      />
     </Container>
   );
 }

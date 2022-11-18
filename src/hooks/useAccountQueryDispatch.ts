@@ -27,6 +27,7 @@ function useAccountQueryDispatch() {
 
   const dispatchSearch = (search: string) => {
     dispatch(setSearch(search.trim()));
+    setQueryParams({ search: search.trim() });
   };
 
   const dispatchLimit = (limit: number) => {

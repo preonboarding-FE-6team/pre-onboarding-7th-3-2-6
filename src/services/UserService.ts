@@ -1,10 +1,35 @@
 import axios from '@utils/getAxios';
 import { User } from '@type/user';
+import getQueryString from '@utils/getQueryString';
 
 const UserService = {
-  async getUsers() {
-    const res = await axios({ bearer: true }).get<User[]>('/users');
-    return res.data;
+  usersQueryOptions: {
+    staleTime: 3 * 60 * 1000,
+    keepPreviousData: true,
+  },
+
+  usersQueryConverter(key: string) {
+    switch (key) {
+      case 'page':
+        return '_page';
+      case 'limit':
+        return '_limit';
+      case 'isActive':
+        return 'is_active';
+      case 'isStaff':
+        return 'is_staff';
+      case 'search':
+        return 'q';
+      default:
+        return key;
+    }
+  },
+
+  async getUsers(params: Record<string, unknown>) {
+    const { data, headers } = await axios({ bearer: true }).get<User[]>(
+      `/users?${getQueryString(params, this.usersQueryConverter)}`
+    );
+    return { data, totalLength: Number(headers?.['x-total-count'] ?? 0) };
   },
 
   async getUserById({ id }: { id: number }) {

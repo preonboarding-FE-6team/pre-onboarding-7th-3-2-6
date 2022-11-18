@@ -1,20 +1,46 @@
+import UserService from '@services/UserService';
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useHeaderTitleDispatch from './useHeaderTitleDispatch';
-import useUserURL from './useUserURL';
+import useUserQueryDispatch from './useUserQueryDispatch';
+import useUserQueryState from './useUserQueryState';
 
 function useUsers() {
-  const userURL = useUserURL();
+  const [enabled, setEnabled] = useState(false);
   const router = useRouter();
+  const userQuery: Record<string, unknown> = useUserQueryState();
+  const { dispatchPage, dispatchLimit, dispatchIsActive, dispatchIsStaff, dispatchSearch } = useUserQueryDispatch();
   const dispatchTitle = useHeaderTitleDispatch();
 
-  useEffect(() => {
-    router.push(userURL);
-  }, [userURL]);
+  const { data } = useQuery(['users', userQuery], () => UserService.getUsers(userQuery), {
+    ...UserService.usersQueryOptions,
+    enabled,
+  });
 
   useEffect(() => {
     dispatchTitle('사용자 목록');
   }, []);
+
+  useEffect(() => {
+    const { page = 1, limit = 30, is_active = 'all', is_staff = 'all', search = '' } = router.query;
+    dispatchPage(Number(page));
+    dispatchLimit(Number(limit));
+    dispatchIsActive(String(is_active));
+    dispatchIsStaff(String(is_staff));
+    dispatchSearch(String(search ?? ''));
+    setEnabled(true);
+  }, [router.query]);
+
+  return {
+    page: Number(userQuery.page),
+    limit: Number(userQuery.limit),
+    search: String(userQuery.search),
+    dispatchPage,
+    dispatchSearch,
+    data: data?.totalLength ? data?.data ?? [] : [],
+    totalLength: data?.totalLength ?? 0,
+  };
 }
 
 export default useUsers;

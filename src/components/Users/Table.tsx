@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { User } from '@type/user';
+import type { User } from '@type/user';
+import useMount from '@hooks/useMount';
 import TableHeadRow from './TableHeadRow';
 import TableBodyRow from './TableBodyRow';
 
@@ -10,6 +11,7 @@ type Props = {
 };
 
 function Table({ users }: Props) {
+  const isMount = useMount();
   return (
     <Container>
       <TableHead>
@@ -17,13 +19,14 @@ function Table({ users }: Props) {
           <TableHeadRow />
         </Row>
       </TableHead>
-      <tbody>
+      <TableBody>
+        {isMount || <tr />}
         <Row>
           {users.map((user) => (
             <TableBodyRow key={user.uuid} user={user} />
           ))}
         </Row>
-      </tbody>
+      </TableBody>
     </Container>
   );
 }
@@ -41,6 +44,12 @@ const TableHead = styled.thead`
   position: sticky;
   top: 0;
   z-index: 2;
+`;
+
+const TableBody = styled.tbody`
+  & > tr {
+    border-bottom: 1px solid ${({ theme }) => theme.GRAY_BG};
+  }
 `;
 
 const Row = styled.tr`

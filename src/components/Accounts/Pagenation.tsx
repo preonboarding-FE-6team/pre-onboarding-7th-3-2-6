@@ -8,13 +8,13 @@ import { PER_PAGE } from '@utils/const';
 
 type Props = {
   contents: Account[] | User[];
+  totalLength: number;
   page: number;
   limit: number;
-  totalLength: string;
   dispatchPage: (page: number) => void;
 };
 
-function Pagenation({ totalLength, contents, page, limit, dispatchPage }: Props) {
+function Pagenation({ contents, totalLength, page, limit, dispatchPage }: Props) {
   const handlePrevClick = () => dispatchPage(page - 1);
   const handleNextClick = () => dispatchPage(page + 1);
   const handleTargetClick = (targetPage: number) => dispatchPage(targetPage);

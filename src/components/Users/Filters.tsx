@@ -7,7 +7,7 @@ import { getSelectOptions } from '@utils/getSelectOptions';
 import styled from 'styled-components';
 
 function Filters() {
-  const { dispatchIsActive, dispatchIsStaff } = useUserQueryDispatch();
+  const { dispatchPage, dispatchIsActive, dispatchIsStaff } = useUserQueryDispatch();
   const { isActive, isStaff } = useUserQueryState();
 
   const brokerOptions = getSelectOptions(staff, '임직원계좌(전체)');
@@ -15,8 +15,18 @@ function Filters() {
 
   return (
     <Container>
-      <SelectBox options={userIsActiveOptions} handleSelectChange={dispatchIsActive} defaultValue={isActive} />
-      <SelectBox options={brokerOptions} handleSelectChange={dispatchIsStaff} defaultValue={isStaff} />
+      <SelectBox
+        options={userIsActiveOptions}
+        handleSelectChange={dispatchIsActive}
+        dispatchPage={dispatchPage}
+        value={isActive}
+      />
+      <SelectBox
+        options={brokerOptions}
+        handleSelectChange={dispatchIsStaff}
+        dispatchPage={dispatchPage}
+        value={isStaff}
+      />
     </Container>
   );
 }
